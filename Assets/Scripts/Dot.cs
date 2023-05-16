@@ -9,10 +9,10 @@ public class Dot : MonoBehaviour
 {
     private int column;
     private int row;
-    public int previousRow;
-    public int previousColumn;
     public int targetX;
     public int targetY;
+
+
 
     private GameObject otherDot;
     private Board board;
@@ -23,9 +23,12 @@ public class Dot : MonoBehaviour
 
     public bool isMatched = false;
     // Start is called before the first frame update
+
+    private FindMatches findMatches;
     void Start()
     {
         board = FindObjectOfType<Board>();
+        findMatches = FindObjectOfType<FindMatches>();
         targetX = (int)transform.position.x;
         targetY = (int)transform.position.y;
         row = targetY;
@@ -36,7 +39,7 @@ public class Dot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindMatches();
+        
         if (isMatched){
             SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
             mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
@@ -49,6 +52,7 @@ public class Dot : MonoBehaviour
             // move towards to target
             tempPosition = new UnityEngine.Vector2(targetX, transform.position.y);
             transform.position = UnityEngine.Vector2.Lerp(transform.position, tempPosition, .4f);
+            findMatches.FindAllMatches();
         }else{
             // direct set position
             tempPosition = new UnityEngine.Vector2(targetX, transform.position.y);
@@ -60,6 +64,7 @@ public class Dot : MonoBehaviour
             // move towards to target
             tempPosition = new UnityEngine.Vector2(transform.position.x, targetY);
             transform.position = UnityEngine.Vector2.Lerp(transform.position, tempPosition, .4f);
+            findMatches.FindAllMatches();
         }else{  
             // direct set position
             tempPosition = new UnityEngine.Vector2(transform.position.x, targetY);
@@ -114,17 +119,17 @@ public class Dot : MonoBehaviour
         }
     }
 
-    void FindMatches(){
-        
-        bool flag = true;
-        for (int i = 0; i < board.width; i++){
-            if (board.allDots[i, row].tag != this.gameObject.tag){
-                flag = false;
-                break;
-            }
-        }
+    // void FindMatches(){
 
-        isMatched = flag;
+    //     bool flag = true;
+    //     for (int i = 0; i < board.width; i++){
+    //         if (board.allDots[i, row].tag != this.gameObject.tag){
+    //             flag = false;
+    //             break;
+    //         }
+    //     }
 
-    }
+    //     isMatched = flag;
+
+    // }
 }
