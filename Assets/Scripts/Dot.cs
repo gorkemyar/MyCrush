@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.Numerics;
 using System.Collections;
@@ -8,7 +9,8 @@ public class Dot : MonoBehaviour
 {
     private int column;
     private int row;
-
+    public int previousRow;
+    public int previousColumn;
     public int targetX;
     public int targetY;
 
@@ -18,6 +20,8 @@ public class Dot : MonoBehaviour
     private UnityEngine.Vector2 finalTouchPosition;
     private UnityEngine.Vector2 tempPosition;
     public float swipeAngle = 0;
+
+    public bool isMatched = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,13 @@ public class Dot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FindMatches();
+        if (isMatched){
+            SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
+            mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
+        }
+
+
         targetX = column;
         targetY = row;
         if (Math.Abs(targetX - transform.position.x) > .1){
@@ -68,29 +79,52 @@ public class Dot : MonoBehaviour
 
     void CalculateAngle(){
         swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
-        Debug.Log(swipeAngle);
-        MovePieces();
+        UnityEngine.Debug.Log(swipeAngle);
+        if (!isMatched){
+            MovePieces();
+        }
+        
     }
 
     void MovePieces(){
-        if (swipeAngle > -45 && swipeAngle <= 45 && column < board.width){
+        if (swipeAngle > -45 && swipeAngle <= 45 && column < board.width-1){
             otherDot = board.allDots[column + 1, row];
-            otherDot.GetComponent<Dot>().column -= 1;
-            column += 1;
-        } else if (swipeAngle > 45 && swipeAngle <= 135 && row < board.height){
+            if (!otherDot.GetComponent<Dot>().isMatched){
+                otherDot.GetComponent<Dot>().column -= 1;
+                column += 1;
+            }
+        } else if (swipeAngle > 45 && swipeAngle <= 135 && row < board.height-1){
             otherDot = board.allDots[column, row+1];
-            otherDot.GetComponent<Dot>().row -= 1;
-            row += 1;
+            if (!otherDot.GetComponent<Dot>().isMatched){
+                otherDot.GetComponent<Dot>().row -= 1;
+                row += 1;
+            }
         } else if  (swipeAngle > 135 || swipeAngle <= -135 && column > 0){
             otherDot = board.allDots[column - 1, row];
-            otherDot.GetComponent<Dot>().column += 1;
-            column -= 1;
+            if (!otherDot.GetComponent<Dot>().isMatched){
+                otherDot.GetComponent<Dot>().column += 1;
+                column -= 1;
+            }
         } else if (swipeAngle < -45 && swipeAngle >= -135 && row > 0){
             otherDot = board.allDots[column, row - 1];
-            otherDot.GetComponent<Dot>().row += 1;
-            row -= 1;
+            if (!otherDot.GetComponent<Dot>().isMatched){
+                otherDot.GetComponent<Dot>().row += 1;
+                row -= 1;
+            }
+        }
+    }
+
+    void FindMatches(){
+        
+        bool flag = true;
+        for (int i = 0; i < board.width; i++){
+            if (board.allDots[i, row].tag != this.gameObject.tag){
+                flag = false;
+                break;
+            }
         }
 
+        isMatched = flag;
 
     }
 }

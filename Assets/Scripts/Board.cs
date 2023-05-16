@@ -30,7 +30,6 @@ public class Board : MonoBehaviour
                 GameObject dot = Instantiate(dots[dotToUse], tempPosition, Quaternion.identity);
                 dot.transform.parent = this.transform;
                 dot.name = "( " + i + ", " + j + " )";
-
                 allDots[i, j] = dot;
             }
         }
