@@ -12,8 +12,6 @@ public class Dot : MonoBehaviour
     public int targetX;
     public int targetY;
 
-
-
     private GameObject otherDot;
     private Board board;
     private UnityEngine.Vector2 firstTouchPosition;
@@ -22,6 +20,7 @@ public class Dot : MonoBehaviour
     public float swipeAngle = 0;
 
     public bool isMatched = false;
+    private bool isEffect = true;
     // Start is called before the first frame update
 
     private FindMatches findMatches;
@@ -42,7 +41,13 @@ public class Dot : MonoBehaviour
         
         if (isMatched){
             SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
-            mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
+            if (isEffect){
+                GameObject particle = Instantiate(board.destroyEffect, transform.position, UnityEngine.Quaternion.identity);
+                Destroy(particle, .5f);
+                mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
+                isEffect = false;
+
+            }
         }
 
 

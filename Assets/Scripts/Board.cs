@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Board : MonoBehaviour
 {
     public int width;
     public int height;
     public GameObject tilePrefab;
     public GameObject[] dots;
-
+    public GameObject destroyEffect;
     public GameObject[,] allDots;
+
     private BackgroundTile[,] allTiles;    
+    private FindMatches findMatches;
+
+
 
     void Start(){
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
+        findMatches = FindObjectOfType<FindMatches>();
         SetUp();
     }
 
@@ -33,5 +39,6 @@ public class Board : MonoBehaviour
                 allDots[i, j] = dot;
             }
         }
+        findMatches.FindAllMatches();
     }
 }

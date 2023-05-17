@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 4329609548659672853, guid: a3eff4277190f4355a8d34672a0ab2c1, type: 3}
   - {fileID: 4775582674760308201, guid: af1c5c4b1c6cb45aea9c361a0e98ac0b, type: 3}
   - {fileID: 1581332156760494140, guid: 1532e6813860e40dfa2e4850f371fd36, type: 3}
+  destroyEffect: {fileID: 1311294396061415309, guid: 0b7c251d44e354941bf1ca460bc726a6, type: 3}
 --- !u!1 &1823211876
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,3 +308,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85a2e88392294ef8a592f74459bbc7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMatches: []
