@@ -15,12 +15,21 @@ public class Board : MonoBehaviour
     private BackgroundTile[,] allTiles;    
     private FindMatches findMatches;
 
+    private ScoreManager scoreManager;
+    private Dictionary<string, int> scoreTable = new Dictionary<string, int>(){
+        {"Indigo", 200},
+        {"Green", 150},
+        {"Red", 100},
+        {"Yellow", 250},
+    };
 
+    private HashSet<int> rowSet = new HashSet<int>();
 
     void Start(){
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
         findMatches = FindObjectOfType<FindMatches>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         SetUp();
     }
 
@@ -40,5 +49,13 @@ public class Board : MonoBehaviour
             }
         }
         findMatches.FindAllMatches();
+    }
+
+
+    public void updateScore(int row, string tag){
+        if (!rowSet.Contains(row)){
+            scoreManager.IncreaseScore(scoreTable[tag]);
+            rowSet.Add(row);
+        }
     }
 }

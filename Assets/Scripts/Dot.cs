@@ -45,7 +45,10 @@ public class Dot : MonoBehaviour
                 GameObject particle = Instantiate(board.destroyEffect, transform.position, UnityEngine.Quaternion.identity);
                 Destroy(particle, .5f);
                 mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
+                board.updateScore(row, this.gameObject.tag);
                 isEffect = false;
+
+                
 
             }
         }
