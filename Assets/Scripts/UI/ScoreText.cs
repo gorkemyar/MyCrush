@@ -15,7 +15,7 @@ public class ScoreText : MonoBehaviour
 
     void SetScoreText(){
         if (level.GetComponent<LevelButton>().isActive){
-            scoreText.text = "Highest Score: Currently Empty"; 
+            scoreText.text = "Highest Score: " + level.GetComponent<LevelButton>().highScores.ToString(); 
         } else {
             scoreText.text = "Locked Level";
         }

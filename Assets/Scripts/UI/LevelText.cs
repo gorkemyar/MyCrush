@@ -19,7 +19,7 @@ public class LevelText : MonoBehaviour
 
     void SetLevelText(){
         int levelNum = level.GetComponent<LevelButton>().level;
-        levelText.text = "Level " + levelNum.ToString() +  " - Moves " + levelGrid.GetComponent<NumberMoves>().GetMoveNumber(levelNum).ToString();
+        levelText.text = "Level " + levelNum.ToString() +  " - Moves " + level.GetComponent<LevelButton>().moves.ToString();
     }
     // Update is called once per frame
     void Update()

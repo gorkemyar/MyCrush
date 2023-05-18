@@ -7,8 +7,9 @@ public class Board : MonoBehaviour
 {
     public int width;
     public int height;
-
     public int moveCount;
+    public int highScore = 0;
+
     public GameObject tilePrefab;
     public GameObject[] dots;
     public GameObject destroyEffect;
@@ -71,8 +72,36 @@ public class Board : MonoBehaviour
         findMatches.FindAllMatches();
     }
 
-
     private void LoadLevel10(){
+        int currentLevel = PlayerPrefs.GetInt("currentLevel");
+        width = PlayerPrefs.GetInt("currentWidth");
+        height = PlayerPrefs.GetInt("currentHeight");
+        moveCount = PlayerPrefs.GetInt("currentMoveNumber");
+        highScore = PlayerPrefs.GetInt("currentHighScore");
+        string currentCandyType = PlayerPrefs.GetString("currentCandyType");
+        
+        string[] dots = currentCandyType.Split(',');
+        allTiles = new BackgroundTile[width, height];
+        allDots = new GameObject[width, height];
+        
+        for (int i = 0; i < height; i++){
+            for (int j = 0; j < width; j++){
+                Vector2 tempPosition = new Vector2(j, i);
+                GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
+                backgroundTile.transform.parent = this.transform;
+                backgroundTile.name = "( " + i + ", " + j + " )";
+
+                GameObject dotToUse = FindDot(colorTable[dots[i*width + j]]);
+                GameObject dot = Instantiate(dotToUse, tempPosition, Quaternion.identity);
+                dot.transform.parent = this.transform;
+                dot.name = "( " + i + ", " + j + " )";
+                allDots[j, i] = dot;
+            }
+        }
+
+    }
+
+    private void LoadLevel20(){
         
         int currentLevel = PlayerPrefs.GetInt("currentLevel");
         string path = "Levels/RM_A" + currentLevel.ToString();
