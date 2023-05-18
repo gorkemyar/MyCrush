@@ -5,36 +5,37 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [Header("Board Variables")]
     public int width;
     public int height;
     public int moveCount;
     public int highScore = 0;
 
+    [Header("Game Objects")]
     public GameObject tilePrefab;
     public GameObject[] dots;
     public GameObject destroyEffect;
     public GameObject[,] allDots;
 
-    private BackgroundTile[,] allTiles;    
+    [Header("Prefabs")]    
+    private BackgroundTile[,] allTiles;
     private FindMatches findMatches;
-
     private ScoreManager scoreManager;
-
     private SoundManager soundManager;
+
+    [Header("Dictionary for Score and Color")]
     private Dictionary<string, int> scoreTable = new Dictionary<string, int>(){
         {"Indigo", 200},
         {"Green", 150},
         {"Red", 100},
         {"Yellow", 250},
     };
-
     private Dictionary<string, string> colorTable = new Dictionary<string, string>(){
         {"b", "Indigo"},
         {"g", "Green"},
         {"r", "Red"},
         {"y", "Yellow"},
     };
-
     private HashSet<int> rowSet = new HashSet<int>();
 
     
@@ -149,4 +150,9 @@ public class Board : MonoBehaviour
             rowSet.Add(row);
         }
     }
+
+    public void MakeMove(){
+        scoreManager.DecreaseMove();
+    }
+
 }

@@ -365,9 +365,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 1
   isActive: 1
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 21300000, guid: f11f31c7b53714b6d918d1852537cac0, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   levelToLoad: Game
+  gameData: {fileID: 0}
 --- !u!1 &396664650
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,9 +815,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 4
   isActive: 0
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 21300000, guid: f11f31c7b53714b6d918d1852537cac0, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   levelToLoad: Game
+  gameData: {fileID: 0}
 --- !u!114 &542545232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2569,9 +2575,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 5
   isActive: 0
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 21300000, guid: f11f31c7b53714b6d918d1852537cac0, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   levelToLoad: Game
+  gameData: {fileID: 0}
 --- !u!114 &1206565234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3082,10 +3091,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 2
-  isActive: 1
+  isActive: 0
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 21300000, guid: f11f31c7b53714b6d918d1852537cac0, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   levelToLoad: Game
+  gameData: {fileID: 0}
 --- !u!114 &1693598253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3402,9 +3414,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 3
   isActive: 0
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 21300000, guid: f11f31c7b53714b6d918d1852537cac0, type: 3}
   lockedSprite: {fileID: 21300000, guid: fea102a46fad246078aade7aa43f217d, type: 3}
   levelToLoad: Game
+  gameData: {fileID: 0}
 --- !u!114 &1876769361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3685,9 +3700,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: 0
   isActive: 0
+  highScores: 0
+  moves: 0
   activeSprite: {fileID: 0}
   lockedSprite: {fileID: 0}
   levelToLoad: 
+  gameData: {fileID: 0}
 --- !u!1 &2052435536
 GameObject:
   m_ObjectHideFlags: 0

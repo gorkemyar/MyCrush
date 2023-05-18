@@ -95,6 +95,7 @@ public class Dot : MonoBehaviour
         UnityEngine.Debug.Log(swipeAngle);
         if (!isMatched){
             MovePieces();
+            board.MakeMove();
         }
         
     }
