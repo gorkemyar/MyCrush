@@ -6,26 +6,30 @@ public class PlayLevelButton : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private GameObject level;
+    private GameObject parent;
     private Button myButton;
     private Image myImage;
+    private GameData gameData;
+
+    private int level;
 
     void Start()
     {
-        level = transform.parent.gameObject;
+        parent = transform.parent.gameObject;
         myButton = GetComponent<Button>();
         myImage = GetComponent<Image>();
-
+        gameData = parent.GetComponent<LevelButton>().gameData;
+        level = parent.GetComponent<LevelButton>().level;
         ButtonActivate();
     }
 
     void ButtonActivate(){
-        if (level.GetComponent<LevelButton>().isActive){
+        if (gameData.saveData.isActive[level - 1]){
             myButton.interactable = true;
-            myImage.sprite = level.GetComponent<LevelButton>().activeSprite;
+            myImage.sprite = parent.GetComponent<LevelButton>().activeSprite;
         } else {
             myButton.interactable = false;
-            myImage.sprite = level.GetComponent<LevelButton>().lockedSprite;
+            myImage.sprite = parent.GetComponent<LevelButton>().lockedSprite;
         }
     }
     // Update is called once per frame

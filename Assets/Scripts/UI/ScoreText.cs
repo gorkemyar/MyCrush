@@ -4,19 +4,29 @@ using UnityEngine;
 using TMPro;
 public class ScoreText : MonoBehaviour
 {
-    private GameObject level;
+    private GameObject parent;
+
+    private GameData gameData;
+
+    private int level;
+
+    private int highScore;
+
     public TMP_Text scoreText;
     // Start is called before the first frame update
     void Start()
     {
-        level = transform.parent.gameObject;
+        parent = transform.parent.gameObject;
+        gameData = parent.GetComponent<LevelButton>().gameData;
+        level = parent.GetComponent<LevelButton>().level;
         SetScoreText();
     }
 
     void SetScoreText(){
-        if (level.GetComponent<LevelButton>().isActive){
-            scoreText.text = "Highest Score: " + level.GetComponent<LevelButton>().highScores.ToString(); 
-        } else {
+        if (gameData != null && gameData.saveData.isActive[level - 1]){
+            highScore = gameData.saveData.highScores[level - 1];
+            scoreText.text = "Highest Score: " + highScore.ToString();
+        }else{
             scoreText.text = "Locked Level";
         }
         
@@ -24,6 +34,5 @@ public class ScoreText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

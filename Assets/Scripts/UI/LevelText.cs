@@ -6,20 +6,26 @@ public class LevelText : MonoBehaviour
 {
 
     public TMP_Text levelText;
-    private GameObject level;
+    private GameObject parent;
+    private GameData gameData;
 
-    private GameObject levelGrid;
+    private int level;
+
+    private int move;
     // Start is called before the first frame update
     void Start()
     {
-        level = transform.parent.gameObject;
-        levelGrid = level.transform.parent.gameObject;
+        parent = transform.parent.gameObject;
+        gameData = parent.GetComponent<LevelButton>().gameData;
+        level = parent.GetComponent<LevelButton>().level;
         SetLevelText();   
     }
 
     void SetLevelText(){
-        int levelNum = level.GetComponent<LevelButton>().level;
-        levelText.text = "Level " + levelNum.ToString() +  " - Moves " + level.GetComponent<LevelButton>().moves.ToString();
+        if (gameData != null){
+            move = gameData.saveData.moveNumber[level - 1];
+            levelText.text =  "Level " + level.ToString() +  " - Moves " + move.ToString();
+        }
     }
     // Update is called once per frame
     void Update()

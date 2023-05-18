@@ -6,14 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class LevelButton : MonoBehaviour
 {
-    [Header("UI Stuff")]
-    public int level;
-    public bool isActive;
-    public int highScores;
-    public int moves;
-
 
     [Header("Inputs")]
+    public int level;
     public Sprite activeSprite;
     public Sprite lockedSprite;
     public string levelToLoad;
@@ -23,7 +18,6 @@ public class LevelButton : MonoBehaviour
     void Start()
     {   
         gameData = FindObjectOfType<GameData>();
-        LoadData();
     }
 
     // Update is called once per frame
@@ -32,15 +26,6 @@ public class LevelButton : MonoBehaviour
         
     }
 
-    public void LoadData(){
-        if (gameData != null && level != 0){
-            if (gameData.saveData.isActive[level-1]){
-                isActive = true;
-                highScores = gameData.saveData.highScores[level-1];
-                moves = gameData.saveData.moveNumber[level-1];
-            }
-        }
-    }
 
     public void Play(){
         if (gameData != null && level != 0){

@@ -106,9 +106,7 @@ public class Board : MonoBehaviour
         
         int currentLevel = PlayerPrefs.GetInt("currentLevel");
         string path = "Levels/RM_A" + currentLevel.ToString();
-        UnityEngine.Debug.Log(path);
         TextAsset levelData = Resources.Load<TextAsset>(path);
-        UnityEngine.Debug.Log(levelData == null);
         string[] lines = levelData.text.Split('\n');
         width = int.Parse(lines[1].Substring(12));
         height = int.Parse(lines[2].Substring(13));
