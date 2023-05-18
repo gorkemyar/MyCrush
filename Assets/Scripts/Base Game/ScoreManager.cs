@@ -10,6 +10,8 @@ public class ScoreManager : MonoBehaviour
 
     public TMP_Text moveText;
 
+    public TMP_Text finalScoreText;
+
     private int score;
     private int currentHighScore;
     private int currentMoveNumber;
@@ -29,6 +31,7 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = score.ToString();
         highScoreText.text = currentHighScore.ToString();
         moveText.text = currentMoveNumber.ToString();
+        finalScoreText.text = "Level Completed\nScore: " + score.ToString();
     }
     public void IncreaseScore(int amountToIncrease){
         score += amountToIncrease;
@@ -43,6 +46,13 @@ public class ScoreManager : MonoBehaviour
         if (score > currentHighScore){
             currentHighScore = score;
         }
+    }
+
+    public int GetScore(){
+        return score;
+    }
+    public int GetHighScore(){
+        return currentHighScore;
     }
 
 }

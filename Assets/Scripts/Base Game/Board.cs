@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
     public GameObject[] dots;
     public GameObject destroyEffect;
     public GameObject[,] allDots;
+    public GameObject gameCompletePanel;
 
     [Header("Prefabs")]    
     private BackgroundTile[,] allTiles;
@@ -106,9 +107,7 @@ public class Board : MonoBehaviour
         
         int currentLevel = PlayerPrefs.GetInt("currentLevel");
         string path = "Levels/RM_A" + currentLevel.ToString();
-        UnityEngine.Debug.Log(path);
         TextAsset levelData = Resources.Load<TextAsset>(path);
-        UnityEngine.Debug.Log(levelData == null);
         string[] lines = levelData.text.Split('\n');
         width = int.Parse(lines[1].Substring(12));
         height = int.Parse(lines[2].Substring(13));
@@ -153,6 +152,11 @@ public class Board : MonoBehaviour
 
     public void MakeMove(){
         scoreManager.DecreaseMove();
+        moveCount--;
+        if (moveCount == 0){
+            PlayerPrefs.SetInt("currentScore", scoreManager.GetScore());
+            PlayerPrefs.Save();
+            gameCompletePanel.SetActive(true);
+        }
     }
-
 }
