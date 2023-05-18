@@ -47,9 +47,6 @@ public class Dot : MonoBehaviour
                 mySprite.color = new UnityEngine.Color(0f, 0f, 0f, .2f);
                 board.updateScore(row, this.gameObject.tag);
                 isEffect = false;
-
-                
-
             }
         }
 

@@ -9,8 +9,8 @@ public class CameraScalar : MonoBehaviour
 
     private Board board;
     private float aspectRatio = 0.625f;
-    private float padding = 2;
-    private float yOffset = 1;
+    private float padding = 1;
+    private float yOffset = 0.5f;
     private float cameraOffset = -10;
     void Start()
     {

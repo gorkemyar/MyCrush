@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
     public GameObject[] dots;
     public GameObject destroyEffect;
     public GameObject[,] allDots;
+    public GameObject gameCompletePanel;
 
     [Header("Prefabs")]    
     private BackgroundTile[,] allTiles;
@@ -151,6 +152,11 @@ public class Board : MonoBehaviour
 
     public void MakeMove(){
         scoreManager.DecreaseMove();
+        moveCount--;
+        if (moveCount == 0){
+            PlayerPrefs.SetInt("currentScore", scoreManager.GetScore());
+            PlayerPrefs.Save();
+            gameCompletePanel.SetActive(true);
+        }
     }
-
 }
