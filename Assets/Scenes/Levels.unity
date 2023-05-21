@@ -4687,7 +4687,6 @@ GameObject:
   - component: {fileID: 2004138276}
   - component: {fileID: 2004138278}
   - component: {fileID: 2004138277}
-  - component: {fileID: 2004138279}
   m_Layer: 5
   m_Name: Level Select
   m_TagString: Untagged
@@ -4756,27 +4755,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2004138275}
   m_CullTransparentMesh: 1
---- !u!114 &2004138279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004138275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9e5f1a1e43724f44ae2e3457430324b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 0
-  activeSprite: {fileID: 0}
-  lockedSprite: {fileID: 0}
-  levelText: {fileID: 0}
-  scoreText: {fileID: 0}
-  levelToLoad: 
-  myImage: {fileID: 0}
-  myButton: {fileID: 0}
-  gameData: {fileID: 0}
 --- !u!1 &2052435536
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public int height;
     public int moveCount;
     public int highScore = 0;
+    public bool isEndOfGame = false;
 
     [Header("Game Objects")]
     public GameObject tilePrefab;
@@ -37,7 +38,7 @@ public class Board : MonoBehaviour
         {"r", "Red"},
         {"y", "Yellow"},
     };
-    private HashSet<int> rowSet = new HashSet<int>();
+    public HashSet<int> rowSet = new HashSet<int>();
 
     
     void Start(){
@@ -153,7 +154,11 @@ public class Board : MonoBehaviour
     public void MakeMove(){
         scoreManager.DecreaseMove();
         moveCount--;
-        if (moveCount == 0){
+
+    }
+
+    void Update(){
+        if (moveCount == 0 || isEndOfGame){
             PlayerPrefs.SetInt("currentScore", scoreManager.GetScore());
             PlayerPrefs.Save();
             gameCompletePanel.SetActive(true);

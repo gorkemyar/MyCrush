@@ -18,7 +18,6 @@ public class Dot : MonoBehaviour
     private UnityEngine.Vector2 finalTouchPosition;
     private UnityEngine.Vector2 tempPosition;
     public float swipeAngle = 0;
-
     public bool isMatched = false;
     private bool isEffect = true;
     // Start is called before the first frame update
@@ -32,7 +31,6 @@ public class Dot : MonoBehaviour
         targetY = (int)transform.position.y;
         row = targetY;
         column = targetX;
-
     }
 
     // Update is called once per frame
@@ -57,6 +55,7 @@ public class Dot : MonoBehaviour
             // move towards to target
             tempPosition = new UnityEngine.Vector2(targetX, transform.position.y);
             transform.position = UnityEngine.Vector2.Lerp(transform.position, tempPosition, .4f);
+            findMatches.GameOver();
             findMatches.FindAllMatches();
         }else{
             // direct set position
@@ -69,7 +68,9 @@ public class Dot : MonoBehaviour
             // move towards to target
             tempPosition = new UnityEngine.Vector2(transform.position.x, targetY);
             transform.position = UnityEngine.Vector2.Lerp(transform.position, tempPosition, .4f);
+            findMatches.GameOver();
             findMatches.FindAllMatches();
+            
         }else{  
             // direct set position
             tempPosition = new UnityEngine.Vector2(transform.position.x, targetY);
@@ -90,7 +91,7 @@ public class Dot : MonoBehaviour
     void CalculateAngle(){
         swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
         UnityEngine.Debug.Log(swipeAngle);
-        if (!isMatched){
+        if (!isMatched && board.moveCount > 0 && board.isEndOfGame == false){
             MovePieces();
             board.MakeMove();
         }
