@@ -4,55 +4,33 @@ using UnityEngine;
 using TMPro;
 public class ScoreManager : MonoBehaviour
 {
-
+    [Header("UI Texts")]
     public TMP_Text scoreText;
     public TMP_Text highScoreText;
-
     public TMP_Text moveText;
-
     public TMP_Text finalScoreText;
-
-    private int score;
-    private int currentHighScore;
-    private int currentMoveNumber;
 
     // Start is called before the first frame update
     void Start()
-    {
-        if (PlayerPrefs.HasKey("currentLevel")){
-            currentHighScore = PlayerPrefs.GetInt("currentHighScore");
-            currentMoveNumber = PlayerPrefs.GetInt("currentMoveNumber");
-        }
+    {  
     }
 
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = score.ToString();
-        highScoreText.text = currentHighScore.ToString();
-        moveText.text = currentMoveNumber.ToString();
-        finalScoreText.text = "Level Completed\nScore: " + score.ToString();
+        scoreText.text = PersistentMemory.Instance.currentScore.ToString();
+        highScoreText.text = PersistentMemory.Instance.currentHighScore.ToString();
+        moveText.text = PersistentMemory.Instance.currentMoveNumber.ToString();
+        finalScoreText.text = "Level Completed\nScore: " + PersistentMemory.Instance.currentScore.ToString();
     }
     public void IncreaseScore(int amountToIncrease){
-        score += amountToIncrease;
+        PersistentMemory.Instance.currentScore += amountToIncrease;
         UpdateHighScore();
     }
-
-    public void DecreaseMove(){
-        currentMoveNumber--;
-    }
-
     public void UpdateHighScore(){
-        if (score > currentHighScore){
-            currentHighScore = score;
+        if (PersistentMemory.Instance.currentScore > PersistentMemory.Instance.currentHighScore){
+            PersistentMemory.Instance.currentHighScore = PersistentMemory.Instance.currentScore;
         }
-    }
-
-    public int GetScore(){
-        return score;
-    }
-    public int GetHighScore(){
-        return currentHighScore;
     }
 
 }

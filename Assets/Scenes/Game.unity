@@ -847,6 +847,8 @@ MonoBehaviour:
   height: 10
   moveCount: 0
   highScore: 0
+  isEndOfGame: 0
+  loading: 0
   tilePrefab: {fileID: 4595823504117028748, guid: b33e557d2565441c0b35555d1a28577d, type: 3}
   dots:
   - {fileID: 303738892327611366, guid: 2dde095e97127442392c85b43e8d7f14, type: 3}
@@ -855,6 +857,7 @@ MonoBehaviour:
   - {fileID: 1581332156760494140, guid: 1532e6813860e40dfa2e4850f371fd36, type: 3}
   destroyEffect: {fileID: 1311294396061415309, guid: 0b7c251d44e354941bf1ca460bc726a6, type: 3}
   gameCompletePanel: {fileID: 1108899681}
+  loadFiles: {fileID: 0}
 --- !u!4 &647200815
 Transform:
   m_ObjectHideFlags: 0
@@ -2172,7 +2175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f85a2e88392294ef8a592f74459bbc7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMatches: []
 --- !u!4 &1612804085
 Transform:
   m_ObjectHideFlags: 0

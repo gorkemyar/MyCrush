@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "637662406870",
+    "project_id": "rowmatch-2e3c6",
+    "storage_bucket": "rowmatch-2e3c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637662406870:android:e73ba7387af0b4e4ff4177",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.MyCrush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637662406870-pdljso52daufc6i6btbd8m5gtqi7203p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHW0I5UEGJHGk45VBByvDxV1ui6eAj6l8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637662406870-pdljso52daufc6i6btbd8m5gtqi7203p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "637662406870-m4db9k11ohkk557oi0q9nptkc17rqatg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.DefaultCompany.MyCrush"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

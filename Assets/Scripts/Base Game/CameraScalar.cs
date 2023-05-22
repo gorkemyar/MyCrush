@@ -5,34 +5,32 @@ using UnityEngine;
 
 public class CameraScalar : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     private Board board;
     private float aspectRatio = 0.625f;
-    private float padding = 1.5f;
-    private float yOffset = 0.8f;
+    private float padding = 2.0f;
+    private float yOffset = 1.0f;
     private float cameraOffset = -10;
+
+    private int width;
+    private int height;
+
     void Start()
     {
         board = FindObjectOfType<Board>();
+        width = PersistentMemory.Instance.currentWidth;
+        height = PersistentMemory.Instance.currentHeight;
         if (board != null){
-            RepositionCamera(board.width - 1, board.height - 1);
+            RepositionCamera(width - 1, height - 1);
         }
     }
-
     void RepositionCamera(float x,  float y){
         UnityEngine.Vector3 temp = new UnityEngine.Vector3(x/2,y/2 + yOffset, cameraOffset);
         transform.position = temp; 
-        if (board.width >= board.height){
-            Camera.main.orthographicSize = (board.width / 2 + padding) / aspectRatio;
+        if (width >= height){
+            Camera.main.orthographicSize = (width / 2 + padding) / aspectRatio;
         }else{
-            Camera.main.orthographicSize = board.height / 2 + padding;
+            Camera.main.orthographicSize = height / 2 + padding;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

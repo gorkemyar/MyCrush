@@ -33,10 +33,15 @@ public struct Triple{
 public class FindMatches : MonoBehaviour
 {   
     private Board board;
+
+    private int height;
+    private int width;
     // Start is called before the first frame update
     void Start()
     {
         board = FindObjectOfType<Board>();
+        height = PersistentMemory.Instance.currentHeight;
+        width = PersistentMemory.Instance.currentWidth;
     }
 
 
@@ -48,10 +53,10 @@ public class FindMatches : MonoBehaviour
     }
     private IEnumerator FindAllMatchesCo(){
         yield return new WaitForSeconds(.2f);
-        for (int i = 0; i < board.height; i++){
+        for (int i = 0; i < height; i++){
             bool isRowMatch = true;
             GameObject firstDot = board.allDots[0, i];
-            for (int j = 1; j < board.width; j++){
+            for (int j = 1; j < width; j++){
                 GameObject currentDot = board.allDots[j, i];
                 if (currentDot.tag != firstDot.tag){
                     isRowMatch = false;
@@ -59,7 +64,7 @@ public class FindMatches : MonoBehaviour
                 }                
             }
             if (isRowMatch){
-                for (int j = 0; j < board.width; j++){
+                for (int j = 0; j < width; j++){
                     GameObject currentDot = board.allDots[j, i];
                     currentDot.GetComponent<Dot>().isMatched = true;
                 }
@@ -73,20 +78,16 @@ public class FindMatches : MonoBehaviour
 
         // row set that contains all the rows that have been matched
         HashSet<int> rowSet = board.rowSet;
-    
-        // remaining move count
-        int moveCount = board.moveCount;
 
         // starting row
         int pre = 0;
-
         bool IsGameOver = true;
-        for (int cur = 0; cur < board.height; cur++){
+        for (int cur = 0; cur < height; cur++){
             // find the first row that has been matched
-            if (!rowSet.Contains(cur) && cur != board.height - 1){
+            if (!rowSet.Contains(cur) && cur != height - 1){
                 continue;
             }
-            if (cur == board.height - 1 && !rowSet.Contains(cur)){
+            if (cur == height - 1 && !rowSet.Contains(cur)){
                 cur++;
             }   
             // between pre and cur, there are no matched rows
@@ -94,7 +95,7 @@ public class FindMatches : MonoBehaviour
             // create a dictionary to store the color and its positions between pre and cur
             Dictionary<string, List<Pair>> dict = new Dictionary<string, List<Pair>>();
             for (int i = pre; i < cur; i++){
-                for (int j = 0; j < board.width; j++){
+                for (int j = 0; j < width; j++){
                     string name = board.allDots[j, i].tag;
                     Pair elem = new Pair(j, i);
                     if (dict.ContainsKey(name)){
@@ -108,7 +109,7 @@ public class FindMatches : MonoBehaviour
 
             // check if there is a possible row match in the future for any color
             foreach (string name in dict.Keys){ // iterate through all the colors
-                if (dict[name].Count >= board.width){ 
+                if (dict[name].Count >= width){ 
                     // if there is a color that occurs more than the width of the board, 
                     // then there might be a row match
     
@@ -116,7 +117,7 @@ public class FindMatches : MonoBehaviour
                     List<Pair> same_color_elems = dict[name];
                     for (int i = pre; i < cur; i++){ // any row between pre and cur
                         PriorityQueue<Triple, int> pq = new PriorityQueue<Triple, int>();
-                        for (int j = 0; j < board.width; j++){
+                        for (int j = 0; j < width; j++){
                             foreach(Pair elem in same_color_elems){
                                 int dist = Math.Abs(elem.first - j) + Math.Abs(elem.second - i);
                                 pq.Enqueue(new Triple(elem.first, elem.second, j), dist);
@@ -126,7 +127,7 @@ public class FindMatches : MonoBehaviour
                         // HashSet to store the visited positions and a list to store the minimum distance to each column
                         HashSet<string> visited = new HashSet<string>();
                         List<int> dx = new List<int>();
-                        for (int j = 0; j < board.width; j++){
+                        for (int j = 0; j < width; j++){
                             dx.Add(-1);
                         }
 
@@ -141,7 +142,7 @@ public class FindMatches : MonoBehaviour
                         }
 
                         int sum = dx.AsEnumerable().Sum();  // calculate the sum of all the minimum row matches
-                        if (sum <= moveCount){ // if the sum is less than the remaining move count, then there is a possible row match
+                        if (sum <= PersistentMemory.Instance.currentMoveNumber){ // if the sum is less than the remaining move count, then there is a possible row match
                             IsGameOver = false;
                         }
                     }
@@ -151,23 +152,8 @@ public class FindMatches : MonoBehaviour
             pre = cur + 1;
             
         }
-        //UnityEngine.Debug.Log("IsGameOver is " + IsGameOver);
-
         if (IsGameOver){
             board.isEndOfGame = true;
         }
     }
 }
-
-
-/*
-
-
-
-
-i,j  
-
-
-
-*/
-

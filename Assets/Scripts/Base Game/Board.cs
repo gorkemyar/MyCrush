@@ -1,15 +1,12 @@
+using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Board : MonoBehaviour
 {
     [Header("Board Variables")]
-    public int width;
-    public int height;
-    public int moveCount;
-    public int highScore = 0;
     public bool isEndOfGame = false;
 
     [Header("Game Objects")]
@@ -24,6 +21,7 @@ public class Board : MonoBehaviour
     private FindMatches findMatches;
     private ScoreManager scoreManager;
     private SoundManager soundManager;
+
 
     [Header("Dictionary for Score and Color")]
     private Dictionary<string, int> scoreTable = new Dictionary<string, int>(){
@@ -49,13 +47,15 @@ public class Board : MonoBehaviour
     }
 
     private void SetUp(){
-        if (PlayerPrefs.HasKey("currentLevel")){
-            LoadLevel10();
+        if (PersistentMemory.Instance.currentLevel > 0){
+            LoadLevel();
         } else {
             RandomSetUp();
         }
     }
     private void RandomSetUp(){
+        int width = PersistentMemory.Instance.currentWidth;
+        int height = PersistentMemory.Instance.currentHeight;
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
         for (int i = 0; i < width; i++){
@@ -75,13 +75,13 @@ public class Board : MonoBehaviour
         findMatches.FindAllMatches();
     }
 
-    private void LoadLevel10(){
-        int currentLevel = PlayerPrefs.GetInt("currentLevel");
-        width = PlayerPrefs.GetInt("currentWidth");
-        height = PlayerPrefs.GetInt("currentHeight");
-        moveCount = PlayerPrefs.GetInt("currentMoveNumber");
-        highScore = PlayerPrefs.GetInt("currentHighScore");
-        string currentCandyType = PlayerPrefs.GetString("currentCandyType");
+    private void LoadLevel(){
+        int currentLevel = PersistentMemory.Instance.currentLevel;
+        int width = PersistentMemory.Instance.currentWidth;
+        int height = PersistentMemory.Instance.currentHeight;
+        int moveCount = PersistentMemory.Instance.currentMoveNumber;
+        int highScore = PersistentMemory.Instance.currentHighScore;
+        string currentCandyType = PersistentMemory.Instance.currentCandyType;
         
         string[] dots = currentCandyType.Split(',');
         allTiles = new BackgroundTile[width, height];
@@ -93,7 +93,7 @@ public class Board : MonoBehaviour
                 GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
                 backgroundTile.transform.parent = this.transform;
                 backgroundTile.name = "( " + i + ", " + j + " )";
-
+                UnityEngine.Debug.Log(dots[i*width + j] + " " + dots[i*width + j].Length);
                 GameObject dotToUse = FindDot(colorTable[dots[i*width + j]]);
                 GameObject dot = Instantiate(dotToUse, tempPosition, Quaternion.identity);
                 dot.transform.parent = this.transform;
@@ -102,37 +102,6 @@ public class Board : MonoBehaviour
             }
         }
 
-    }
-
-    private void LoadLevel20(){
-        
-        int currentLevel = PlayerPrefs.GetInt("currentLevel");
-        string path = "Levels/RM_A" + currentLevel.ToString();
-        TextAsset levelData = Resources.Load<TextAsset>(path);
-        string[] lines = levelData.text.Split('\n');
-        width = int.Parse(lines[1].Substring(12));
-        height = int.Parse(lines[2].Substring(13));
-        moveCount = int.Parse(lines[3].Substring(12));
-
-        string line = lines[4].Substring(6);
-        string[] dots = line.Split(',');
-        allTiles = new BackgroundTile[width, height];
-        allDots = new GameObject[width, height];
-        
-        for (int i = 0; i < height; i++){
-            for (int j = 0; j < width; j++){
-                Vector2 tempPosition = new Vector2(j, i);
-                GameObject backgroundTile = Instantiate(tilePrefab, tempPosition, Quaternion.identity) as GameObject;
-                backgroundTile.transform.parent = this.transform;
-                backgroundTile.name = "( " + i + ", " + j + " )";
-
-                GameObject dotToUse = FindDot(colorTable[dots[i*width + j]]);
-                GameObject dot = Instantiate(dotToUse, tempPosition, Quaternion.identity);
-                dot.transform.parent = this.transform;
-                dot.name = "( " + i + ", " + j + " )";
-                allDots[j, i] = dot;
-            }
-        }
     }
 
     private GameObject FindDot(string tag){
@@ -151,16 +120,9 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void MakeMove(){
-        scoreManager.DecreaseMove();
-        moveCount--;
-
-    }
 
     void Update(){
-        if (moveCount == 0 || isEndOfGame){
-            PlayerPrefs.SetInt("currentScore", scoreManager.GetScore());
-            PlayerPrefs.Save();
+        if (PersistentMemory.Instance.currentMoveNumber == 0 || isEndOfGame){
             gameCompletePanel.SetActive(true);
         }
     }

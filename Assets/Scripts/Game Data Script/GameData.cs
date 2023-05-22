@@ -27,9 +27,7 @@ public class GameData : MonoBehaviour
             gameData = this;
         } else if (gameData != this){
             Destroy(this.gameObject);
-        }
-       
-        
+        } 
     }
 
     public void Save(){
@@ -52,16 +50,22 @@ public class GameData : MonoBehaviour
             
             file.Close();
         }
-
+    }
+    private void OnApplicationQuit(){
+        //Save();
+    }
+    private void OnDisable(){
+        //Save();
     }
 
+    private void OnEnable(){
+        //Save();
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
 
-    private void OnEnable(){
-        Save();
-    }
+    
 }

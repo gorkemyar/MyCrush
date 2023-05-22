@@ -12,6 +12,9 @@ public class Dot : MonoBehaviour
     public int targetX;
     public int targetY;
 
+    private int height;
+    private int width;
+
     private GameObject otherDot;
     private Board board;
     private UnityEngine.Vector2 firstTouchPosition;
@@ -26,6 +29,8 @@ public class Dot : MonoBehaviour
     void Start()
     {
         board = FindObjectOfType<Board>();
+        height = PersistentMemory.Instance.currentHeight;
+        width = PersistentMemory.Instance.currentWidth;
         findMatches = FindObjectOfType<FindMatches>();
         targetX = (int)transform.position.x;
         targetY = (int)transform.position.y;
@@ -91,21 +96,21 @@ public class Dot : MonoBehaviour
     void CalculateAngle(){
         swipeAngle = Mathf.Atan2(finalTouchPosition.y - firstTouchPosition.y, finalTouchPosition.x - firstTouchPosition.x) * 180 / Mathf.PI;
         UnityEngine.Debug.Log(swipeAngle);
-        if (!isMatched && board.moveCount > 0 && board.isEndOfGame == false){
+        if (!isMatched && PersistentMemory.Instance.currentMoveNumber > 0 && board.isEndOfGame == false){
             MovePieces();
-            board.MakeMove();
+            PersistentMemory.Instance.currentMoveNumber--;
         }
         
     }
 
     void MovePieces(){
-        if (swipeAngle > -45 && swipeAngle <= 45 && column < board.width-1){
+        if (swipeAngle > -45 && swipeAngle <= 45 && column < width-1){
             otherDot = board.allDots[column + 1, row];
             if (!otherDot.GetComponent<Dot>().isMatched){
                 otherDot.GetComponent<Dot>().column -= 1;
                 column += 1;
             }
-        } else if (swipeAngle > 45 && swipeAngle <= 135 && row < board.height-1){
+        } else if (swipeAngle > 45 && swipeAngle <= 135 && row < height-1){
             otherDot = board.allDots[column, row+1];
             if (!otherDot.GetComponent<Dot>().isMatched){
                 otherDot.GetComponent<Dot>().row -= 1;
@@ -125,18 +130,4 @@ public class Dot : MonoBehaviour
             }
         }
     }
-
-    // void FindMatches(){
-
-    //     bool flag = true;
-    //     for (int i = 0; i < board.width; i++){
-    //         if (board.allDots[i, row].tag != this.gameObject.tag){
-    //             flag = false;
-    //             break;
-    //         }
-    //     }
-
-    //     isMatched = flag;
-
-    // }
 }
