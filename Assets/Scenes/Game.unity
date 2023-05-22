@@ -843,12 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3a8f81601d784ee6abe994d3841f885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 7
-  height: 10
-  moveCount: 0
-  highScore: 0
   isEndOfGame: 0
-  loading: 0
   tilePrefab: {fileID: 4595823504117028748, guid: b33e557d2565441c0b35555d1a28577d, type: 3}
   dots:
   - {fileID: 303738892327611366, guid: 2dde095e97127442392c85b43e8d7f14, type: 3}
@@ -857,7 +852,6 @@ MonoBehaviour:
   - {fileID: 1581332156760494140, guid: 1532e6813860e40dfa2e4850f371fd36, type: 3}
   destroyEffect: {fileID: 1311294396061415309, guid: 0b7c251d44e354941bf1ca460bc726a6, type: 3}
   gameCompletePanel: {fileID: 1108899681}
-  loadFiles: {fileID: 0}
 --- !u!4 &647200815
 Transform:
   m_ObjectHideFlags: 0
@@ -2271,10 +2265,10 @@ RectTransform:
   m_Father: {fileID: 1108899682}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1904128654
 MonoBehaviour:
@@ -2325,10 +2319,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
